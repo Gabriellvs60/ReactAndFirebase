@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getNotes, saveNote, deleteNote } from '../actions/notesAction';
 import Notecard from './NoteCard';
 
+import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
