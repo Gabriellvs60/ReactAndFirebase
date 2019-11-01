@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { database } from '../firebase';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { getNotes, saveNote } from '../actions/notesAction';
+import { getNotes, saveNote, deleteNote } from '../actions/notesAction';
 
 
 class App extends Component {
@@ -12,7 +11,6 @@ class App extends Component {
     this.state = {
       title: '',
       body: '',
-      notes: {}
     };
 
     // bind
@@ -41,7 +39,7 @@ class App extends Component {
       body: this.state.body
     };
 
-    this.props.saveNote();
+    this.props.saveNote(note);
     this.setState({
       title: '',
       body: ''
@@ -50,11 +48,12 @@ class App extends Component {
 
   // render notes
   renderNotes() {
-    return _.map(this.state.notes, (note, key) => {
+    return _.map(this.props.notes, (note, key) => {
       return (
-        <div key="key">
+        <div key={key}>
           <h2>{note.title}</h2>
           <p>{note.body}</p>
+          <button className="btn btn-danger btn-xs" onClick={() => this.props.deleteNote(key)}>Delete</button>
         </div>
       );
     });
@@ -106,4 +105,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps, { getNotes, saveNote })(App);
+export default connect(mapStateToProps, { getNotes, saveNote, deleteNote })(App);
