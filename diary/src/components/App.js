@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { getNotes, saveNote, deleteNote } from '../actions/notesAction';
-
+import Notecard from './NoteCard';
 
 class App extends Component {
   constructor(props) {
@@ -50,11 +50,11 @@ class App extends Component {
   renderNotes() {
     return _.map(this.props.notes, (note, key) => {
       return (
-        <div key={key}>
+        <Notecard key={key}>
           <h2>{note.title}</h2>
           <p>{note.body}</p>
           <button className="btn btn-danger btn-xs" onClick={() => this.props.deleteNote(key)}>Delete</button>
-        </div>
+        </Notecard>
       );
     });
   }
