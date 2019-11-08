@@ -19,7 +19,7 @@ class LoadingComponent extends Component {
         }
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps(nextProps){
         //wait for user to get authentication and try to load notes
         if(nextProps.notesLoading === -1 && nextProps.user !== null){
             this.props.getNotes();
