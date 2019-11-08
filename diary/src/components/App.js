@@ -21,10 +21,10 @@ class App extends Component {
   }
 
   // lifecycle
-  componentDidMount() {
+ /*  componentDidMount() {
     this.props.getNotes();
     this.props.getUser();
-  }
+  } */
 
   // handle change
   handleChange(e) {
