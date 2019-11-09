@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { getNotes, saveNote, deleteNote } from '../actions/notesAction';
@@ -20,11 +21,6 @@ class App extends Component {
     this.renderNotes = this.renderNotes.bind(this);
   }
 
-  // lifecycle
- /*  componentDidMount() {
-    this.props.getNotes();
-    this.props.getUser();
-  } */
 
   // handle change
   handleChange(e) {
@@ -38,7 +34,8 @@ class App extends Component {
     e.preventDefault();
     const note = {
       title: this.state.title,
-      body: this.state.body
+      body: this.state.body,
+      uid: this.props.user.uid
     };
 
     this.props.saveNote(note);
@@ -53,9 +50,15 @@ class App extends Component {
     return _.map(this.props.notes, (note, key) => {
       return (
         <Notecard key={key}>
+          <Link to={`/${key}`}>
           <h2>{note.title}</h2>
+          </Link>
           <p>{note.body}</p>
-          <button className="btn btn-danger btn-xs" onClick={() => this.props.deleteNote(key)}>Delete</button>
+          {note.uid === this.props.user.uid &&(
+            <button className="btn btn-danger btn-xs" onClick={() => this.props.deleteNote(key)}>
+              Delete
+            </button>
+            )}
         </Notecard>
       );
     });
@@ -93,6 +96,9 @@ class App extends Component {
                 <button className="btn btn-primary col-sm-12">Save</button>
               </div>
             </form>
+            <br />
+            <br />
+            <br />
             {this.renderNotes()}
           </div>
         </div>

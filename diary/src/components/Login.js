@@ -2,15 +2,33 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux'
 import {googleLogin, twitterLogin} from '../actions/userAction';
 
+
 class Login extends Component{
+
+    componentWillMount() {
+        if (this.props.user !== null){
+            this.props.history.push('/');
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.user !== null){
+            nextProps.history.push('/');
+        }
+    }
+
     render(){
         return(
             <div className="container-fluid">
-                <div className="row text-center">
+                <div className="row">
                     <div className="col-sm-12 jumbotron" style={{marginTop: '-20px'}}>
-                        <h1>Login With Your Favourite <b>Social Network</b></h1>
+                        <h1>DIARY | {new Date().getFullYear()} </h1>
+                        <h2>
+                            <i>Login With Your Favourite <b>Social Network</b> to start writing
+                            </i>
+                        </h2>
                     </div>
-                    <div className="col-sm-6">
+                    <div className="col-sm-6 text-center">
                         <button className="btn btn-danger btn-lg"
                         onClick={this.props.googleLogin}
                         >
@@ -18,7 +36,7 @@ class Login extends Component{
                         </button>
                     </div>
                     <br />
-                    <div className="col-sm-6">
+                    <div className="col-sm-6 text-center">
                         <button className="btn btn-success btn-lg"
                         onClick={this.props.twitterLogin}
                         >
@@ -31,4 +49,16 @@ class Login extends Component{
     }
 }
 
-export default connect(null, {googleLogin, twitterLogin})(Login);
+function mapStateToProps(state, onwProps) {
+
+    return {
+
+        user: state.user
+
+    };
+
+}
+
+
+
+export default connect(mapStateToProps, {googleLogin, twitterLogin})(Login);

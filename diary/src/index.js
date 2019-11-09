@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
 //Components
+import NoteDetail from './components/NoteDetail';
 import App from './components/App';
 import Login from '../src/components/Login';
 import registerServiceWorker from './registerServiceWorker';
@@ -25,12 +26,13 @@ ReactDOM.render(
         <BrowserRouter>
             <LoadingComponent>
                 <div>
-                    <Header />
                     <Switch>
                         <Route path="/login" component={Login} exact={true} />
                         <AuthenticatedComponent>
+                            <Header />
                             <Route path="/" component={App} exact={true} />
                         </AuthenticatedComponent>
+                        <Route path="/:id" component={NoteDetail} exact={true} />
                     </Switch>
                 </div>
             </LoadingComponent>
